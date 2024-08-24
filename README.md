@@ -1,6 +1,6 @@
 # Holo Shop Relaxer
 
-hololive production OFFICIAL SHOPのアカウントページを分かりやすくするChrome拡張機能
+[hololive production OFFICIAL SHOP](https://shop.hololivepro.com/)のアカウントページを分かりやすくするChrome拡張機能
 
 ## 機能
 
