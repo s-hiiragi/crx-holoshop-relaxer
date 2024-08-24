@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Holo Shop Relaxer",
+    "version": "1.0.0",
+
+    "description": "hololive production OFFICIAL SHOPのアカウントページを分かりやすくする拡張機能",
+
+    "content_scripts": [{
+        "matches": ["https://shop.hololivepro.com/account*"],
+        "js": ["content_script.js"]
+    }],
+    "background": {
+        "service_worker": "service_worker.js"
+    },
+    "host_permissions": [
+        "https://shop.hololivepro.com/*"
+    ],
+    "permissions": [
+        "storage"
+    ]
+}
