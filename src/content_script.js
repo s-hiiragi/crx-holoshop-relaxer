@@ -37,12 +37,29 @@ async function onAccountPage() {
     document.querySelector('.Pagination_dot.isActive').style.color = '#4f9fef';
 }
 
+async function onOrderPage() {
+    const orderId = document.querySelector('.PageHeader .SectionHeader__Heading').textContent.trim().split(/\s+/)[1];
+
+    const orderInfo = await chrome.runtime.sendMessage({command: 'query_order_info', orderId: orderId});
+
+    if ((orderInfo?.note ?? '').length === 0) {
+        const cartItems = Array.from(document.querySelectorAll('.CartItem'));
+        const titles = cartItems.map(e => e.querySelector('.CartItem__Title').textContent.trim());
+        const note = titles.join('\r\n');
+        await chrome.runtime.sendMessage({command: 'update_order_info', orderId: orderId, orderInfo: {note: note}});
+    }
+}
+
 async function main() {
     const pageUrl = new URL(location.href);
 
     if (pageUrl.pathname === '/account' || pageUrl.pathname === '/account/') {
         // マイアカウントページにメモ欄を追加
         await onAccountPage();
+    }
+    else if (pageUrl.pathname.match(/^\/account\/orders\/[0-9a-f]+$/)) {
+        // 商品名をメモ欄に貼り付ける
+        await onOrderPage();
     }
 }
 
